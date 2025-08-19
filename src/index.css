@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Define custom Revive at UIC colors */
+@theme {
+  --color-revive-cream: #e5dbd2;
+  --color-revive-brown: #593d21;
+  --color-revive-coffee: #76593f;
+  --color-revive-stone: #83705c;
+  --color-revive-gray: #96897a;
+  --color-revive-tan: #ae9986;
+}
