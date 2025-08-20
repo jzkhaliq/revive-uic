@@ -10,28 +10,35 @@ export default function Contact() {
                 <div className="mt-8 grid md:grid-cols-2 gap-6">
                     <form
                         className="rounded-xl border border-revive-tan bg-revive-cream/70 p-6"
-                        onSubmit={(e) => e.preventDefault()}
+                        action="https://formspree.io/f/meozbvrr"
+                        method="POST"
                     >
                         <div className="grid gap-4">
                             <input
                                 className="rounded-lg border border-revive-tan bg-white/80 px-3 py-2 outline-none"
                                 placeholder="Your name"
+                                name="name"
+                                required
                             />
                             <input
                                 className="rounded-lg border border-revive-tan bg-white/80 px-3 py-2 outline-none"
                                 placeholder="Email"
                                 type="email"
+                                name="email"
+                                required
                             />
                             <textarea
                                 className="rounded-lg border border-revive-tan bg-white/80 px-3 py-2 outline-none min-h-32"
                                 placeholder="Message"
+                                name="message"
+                                required
                             />
                             <button className="rounded-lg bg-revive-brown text-revive-cream px-4 py-2 font-semibold hover:bg-revive-coffee">
                                 Send
                             </button>
                         </div>
-                        {/* Swap to Formspree or a serverless function later */}
                     </form>
+
 
                     <div className="rounded-xl border border-revive-tan bg-white/70 p-6">
                         <p className="font-semibold">Direct</p>

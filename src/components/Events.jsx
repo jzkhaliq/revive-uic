@@ -55,8 +55,13 @@ export default function Events() {
                     </div>
                 </div>
 
-                {/* Optional: embed Google Calendar later */}
-                {/* <iframe src="YOUR_PUBLIC_CAL_URL" className="w-full h-[600px] mt-8 rounded-xl border" /> */}
+                <div className="mt-10 rounded-xl overflow-hidden border border-revive-tan">
+                    <iframe
+                        src="https://calendar.google.com/calendar/embed?src=96deb86c4f855d7ba47cee285642bfb53d1"
+                        className="w-full h-[600px]"
+                        title="Revive at UIC Calendar"
+                    />
+                </div>
             </div>
         </section>
     );
