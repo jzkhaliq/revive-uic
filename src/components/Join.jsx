@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion';
+
 export default function Join() {
     return (
-        <section id="join" className="bg-white text-revive-brown">
+        <motion.section id="join" className="bg-white text-revive-brown" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div className="max-w-6xl mx-auto px-6 py-16">
                 <h2 className="text-3xl font-bold">Join Revive @ UIC</h2>
                 <p className="mt-2 text-revive-stone">
@@ -8,32 +10,19 @@ export default function Join() {
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-6 mt-8">
-                    <a
-                        href="#"
-                        className="rounded-xl border border-revive-tan p-5 hover:bg-revive-cream/60 transition"
-                    >
-                        <p className="font-semibold">Group Chat</p>
-                        <p className="text-sm text-revive-stone">WhatsApp/GroupMe link</p>
-                    </a>
-
-                    <a
-                        href="#"
-                        className="rounded-xl border border-revive-tan p-5 hover:bg-revive-cream/60 transition"
-                    >
-                        <p className="font-semibold">Mailing List</p>
-                        <p className="text-sm text-revive-stone">Event reminders + highlights</p>
-                    </a>
-
-                    <a
-                        href="#"
-                        className="rounded-xl border border-revive-tan p-5 hover:bg-revive-cream/60 transition"
-                    >
-                        <p className="font-semibold">Instagram</p>
-                        <p className="text-sm text-revive-stone">@reviveatuic</p>
-                    </a>
+                    {[
+                        { title: 'Group Chat', desc: 'WhatsApp/GroupMe link', href: '#' },
+                        { title: 'Mailing List', desc: 'Event reminders + highlights', href: '#' },
+                        { title: 'Instagram', desc: '@reviveatuic', href: '#' },
+                    ].map((card) => (
+                        <motion.a key={card.title} href={card.href} className="rounded-xl border border-revive-tan p-5" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                            <p className="font-semibold">{card.title}</p>
+                            <p className="text-sm text-revive-stone">{card.desc}</p>
+                        </motion.a>
+                    ))}
                 </div>
 
-                <div className="mt-10 rounded-xl border border-revive-tan bg-revive-cream/70 p-6">
+                <motion.div className="mt-10 rounded-xl border border-revive-tan bg-revive-cream/70 p-6" whileInView={{ opacity: 1 }} initial={{ opacity: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                     <h3 className="text-xl font-semibold">Mentorship Program</h3>
                     <p className="mt-2 text-revive-stone">
                         Get paired with an upperclassman mentor for academic, spiritual, and campus life support.
@@ -52,8 +41,8 @@ export default function Join() {
                             Apply (Mentor)
                         </a>
                     </div>
-                </div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 }

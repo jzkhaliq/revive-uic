@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion';
+
 export default function Contact() {
     return (
-        <section id="contact" className="bg-white text-revive-brown">
+        <motion.section id="contact" className="bg-white text-revive-brown" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div className="max-w-6xl mx-auto px-6 py-16">
                 <h2 className="text-3xl font-bold">Contact</h2>
                 <p className="mt-2 text-revive-stone">
@@ -8,10 +10,14 @@ export default function Contact() {
                 </p>
 
                 <div className="mt-8 grid md:grid-cols-2 gap-6">
-                    <form
+                    <motion.form
                         className="rounded-xl border border-revive-tan bg-revive-cream/70 p-6"
                         action="https://formspree.io/f/meozbvrr"
                         method="POST"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.05 }}
                     >
                         <div className="grid gap-4">
                             <input
@@ -37,10 +43,10 @@ export default function Contact() {
                                 Send
                             </button>
                         </div>
-                    </form>
+                    </motion.form>
 
 
-                    <div className="rounded-xl border border-revive-tan bg-white/70 p-6">
+                    <motion.div className="rounded-xl border border-revive-tan bg-white/70 p-6" initial={{ opacity: 0, x: 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                         <p className="font-semibold">Direct</p>
                         <ul className="mt-2 text-sm text-revive-stone space-y-1">
                             <li>Email: <a className="underline" href="mailto:reviveatuic@gmail.com">reviveatuic@gmail.com</a></li>
@@ -49,9 +55,9 @@ export default function Contact() {
                         </ul>
                         <p className="mt-4 font-semibold">Office Hours</p>
                         <p className="text-sm text-revive-stone">TBD each semester</p>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }

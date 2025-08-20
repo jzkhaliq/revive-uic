@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
@@ -13,8 +14,17 @@ export default function Navbar() {
 
     const link = "hover:text-revive-coffee transition";
 
+    const navVariants = {
+        hidden: { opacity: 0, y: -8 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+    };
+
     return (
-        <nav className={`sticky top-0 z-50 bg-revive-cream/90 backdrop-blur ${scrolled ? "shadow border-b border-revive-tan/70" : ""}`}>
+        <motion.nav
+            variants={navVariants}
+            initial="hidden"
+            animate="visible"
+            className={`sticky top-0 z-50 bg-revive-cream/90 backdrop-blur ${scrolled ? "shadow border-b border-revive-tan/70" : ""}`}>
             <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
                 <a href="#" className="text-lg font-semibold text-revive-brown">Revive @ UIC</a>
 
@@ -37,9 +47,9 @@ export default function Navbar() {
                 </button>
             </div>
 
-            {/* mobile menu */}
+                {/* mobile menu */}
             {open && (
-                <div className="md:hidden border-t border-revive-tan bg-revive-cream">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="md:hidden border-t border-revive-tan bg-revive-cream">
                     <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3">
                         {[
                             ["About", "#about"],
@@ -53,8 +63,8 @@ export default function Navbar() {
                             </a>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             )}
-        </nav>
+        </motion.nav>
     );
 }

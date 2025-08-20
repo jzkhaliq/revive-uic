@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion';
+
 export default function Donate() {
     return (
-        <section id="donate" className="bg-revive-cream text-revive-brown">
+        <motion.section id="donate" className="bg-revive-cream text-revive-brown" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div className="max-w-6xl mx-auto px-6 py-16">
                 <h2 className="text-3xl font-bold">Support the Chapter</h2>
                 <p className="mt-2 text-revive-stone">
@@ -8,22 +10,24 @@ export default function Donate() {
                 </p>
 
                 <div className="mt-8 flex flex-col md:flex-row gap-6">
-                    <a
+                    <motion.a
                         href="#"
-                        className="flex-1 rounded-xl bg-revive-brown text-revive-cream px-6 py-4 text-center font-semibold hover:bg-revive-coffee"
+                        className="flex-1 rounded-xl bg-revive-brown text-revive-cream px-6 py-4 text-center font-semibold"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                     >
                         Donate Online
-                    </a>
-                    <div className="flex-1 rounded-xl border border-revive-tan bg-white/70 p-5">
+                    </motion.a>
+                    <motion.div className="flex-1 rounded-xl border border-revive-tan bg-white/70 p-5" whileHover={{ scale: 1.01 }}>
                         <p className="font-semibold">Other ways to give</p>
                         <ul className="list-disc list-inside text-sm text-revive-stone mt-2">
                             <li>Cash at events</li>
                             <li>Zelle/Venmo (ask an officer)</li>
                             <li>Sponsor a specific program</li>
                         </ul>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }
