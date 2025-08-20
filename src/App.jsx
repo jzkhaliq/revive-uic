@@ -1,7 +1,13 @@
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+
 export default function App() {
   return (
-    <div className="h-screen flex items-center justify-center bg-revive-brown text-revive-cream">
-      <h1 className="text-5xl font-bold">Revive at UIC 🎉</h1>
+    <div className="font-sans bg-revive-cream text-revive-brown">
+      <Navbar />
+      <Hero />
+      <About />
     </div>
-  )
+  );
 }
