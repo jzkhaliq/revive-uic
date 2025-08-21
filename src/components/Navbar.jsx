@@ -19,14 +19,13 @@ export default function Navbar() {
         visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
     };
 
-    // Ensure section links work even from /admin by prefixing with BASE_URL
+    // Prefix anchors so they work from /admin or /donate too
     const base = import.meta.env.BASE_URL || "/";
 
     const sectionLinks = [
         ["About", `${base}#about`],
         ["Events", `${base}#events`],
         ["Join", `${base}#join`],
-        ["Donate", `${base}#donate`],
         ["Contact", `${base}#contact`],
     ];
 
@@ -47,10 +46,14 @@ export default function Navbar() {
                 {/* desktop links */}
                 <div className="hidden md:flex items-center gap-6 text-sm">
                     {sectionLinks.map(([label, href]) => (
-                        <a key={href} href={href} className={link}>
+                        <a key={label} href={href} className={link} onClick={() => setOpen(false)}>
                             {label}
                         </a>
                     ))}
+                    {/* Donate → route */}
+                    <Link to="/donate" className={link} onClick={() => setOpen(false)}>
+                        Donate
+                    </Link>
                     {/* Admin route */}
                     <Link to="/admin" className={`${link} opacity-80 hover:opacity-100`} onClick={() => setOpen(false)}>
                         Admin
@@ -76,10 +79,13 @@ export default function Navbar() {
                 >
                     <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3">
                         {sectionLinks.map(([label, href]) => (
-                            <a key={href} href={href} className="py-2" onClick={() => setOpen(false)}>
+                            <a key={label} href={href} className="py-2" onClick={() => setOpen(false)}>
                                 {label}
                             </a>
                         ))}
+                        <Link to="/donate" className="py-2" onClick={() => setOpen(false)}>
+                            Donate
+                        </Link>
                         <Link to="/admin" className="py-2" onClick={() => setOpen(false)}>
                             Admin
                         </Link>
