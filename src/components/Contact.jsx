@@ -51,10 +51,9 @@ export default function Contact() {
                         <ul className="mt-2 text-sm text-revive-stone space-y-1">
                             <li>Email: <a className="underline" href="mailto:reviveatuic@gmail.com">reviveatuic@gmail.com</a></li>
                             <li>Instagram: <a className="underline" href="#">@reviveatuic</a></li>
-                            <li>UIC Campus, Chicago, IL</li>
+                            <li>📍 University of Illinois Chicago</li>
                         </ul>
-                        <p className="mt-4 font-semibold">Office Hours</p>
-                        <p className="text-sm text-revive-stone">TBD each semester</p>
+                        
                     </motion.div>
                 </div>
             </div>

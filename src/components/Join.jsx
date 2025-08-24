@@ -57,33 +57,6 @@ export default function Join() {
                         </motion.a>
                     ))}
                 </div>
-
-                <motion.div
-                    className="mt-10 rounded-xl border border-revive-tan bg-revive-cream/70 p-6"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                >
-                    <h3 className="text-xl font-semibold">Mentorship Program</h3>
-                    <p className="mt-2 text-revive-stone">
-                        Get paired with an upperclassman mentor for academic, spiritual, and campus life support.
-                    </p>
-                    <div className="mt-4 flex gap-3">
-                        <a
-                            href="#"
-                            className="rounded-lg bg-revive-brown text-revive-cream px-4 py-2 hover:bg-revive-coffee"
-                        >
-                            Apply (Mentee)
-                        </a>
-                        <a
-                            href="#"
-                            className="rounded-lg border border-revive-brown px-4 py-2 hover:bg-revive-tan/50"
-                        >
-                            Apply (Mentor)
-                        </a>
-                    </div>
-                </motion.div>
             </div>
         </motion.section>
     );
