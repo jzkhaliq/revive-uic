@@ -50,6 +50,16 @@ export default function Navbar() {
                             {label}
                         </a>
                     ))}
+                    {/* Revive external link */}
+                    <a
+                        href="https://www.revive-co.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={link}
+                        onClick={() => setOpen(false)}
+                    >
+                        Revive
+                    </a>
                     {/* Donate → route */}
                     <Link to="/donate" className={link} onClick={() => setOpen(false)}>
                         Donate
@@ -83,6 +93,16 @@ export default function Navbar() {
                                 {label}
                             </a>
                         ))}
+                        {/* Revive external link */}
+                        <a
+                            href="https://www.revive-co.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-2"
+                            onClick={() => setOpen(false)}
+                        >
+                            Revive
+                        </a>
                         <Link to="/donate" className="py-2" onClick={() => setOpen(false)}>
                             Donate
                         </Link>
