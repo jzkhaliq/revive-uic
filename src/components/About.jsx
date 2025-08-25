@@ -19,6 +19,7 @@ export default function About() {
                 >
                     About Us
                 </motion.h2>
+
                 <motion.p
                     className="mt-4 text-revive-stone"
                     initial={{ opacity: 0 }}
@@ -31,6 +32,7 @@ export default function About() {
                     <span className="italic"> إحياء اتباع الدين </span> [revival of following the religion], striving for
                     <span className="italic"> الفوز في الدارين </span> [success in both abodes].
                 </motion.p>
+
                 <motion.p
                     className="mt-4 text-revive-stone"
                     initial={{ opacity: 0 }}
@@ -39,11 +41,18 @@ export default function About() {
                     transition={{ delay: 0.6, duration: 0.6 }}
                 >
                     Through workshops, mentorship, and innovative programs, Revive connects students and professionals
-                    to opportunities that help them grow spiritually, academically, and professionally.
-                    From career-focused networks like <strong>Taqwa Tech</strong> and <strong>Rizq Rewards</strong>,
-                    to service-driven groups like <strong>Khidmah Care</strong>, Revive offers a space for
-                    everyone to excel while uplifting others.
+                    to opportunities that grow spiritual, academic, and professional excellence. Learn more about the
+                    national movement at{" "}
+                    <a
+                        href="https://www.revive-co.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:text-revive-coffee"
+                    >
+                        revive-co.org
+                    </a>.
                 </motion.p>
+
                 <motion.p
                     className="mt-4 text-revive-stone"
                     initial={{ opacity: 0 }}
