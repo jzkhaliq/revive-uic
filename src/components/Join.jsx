@@ -1,17 +1,16 @@
 // src/components/Join.jsx
 import { motion } from "framer-motion";
 import { FaWhatsapp, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { useSiteConfig } from "../lib/siteConfig";
 
 export default function Join() {
-    // 🔗 Your real links
-    const GROUP_CHAT_LINK = "https://chat.whatsapp.com/LnQudjWG00OLFVk8O4wqCJ?mode=ems_copy_c";
-    const LINKEDIN_LINK = "https://www.linkedin.com/company/revive-at-uic";
-    const INSTAGRAM_LINK = "https://www.instagram.com/reviveatuic";
+    const config = useSiteConfig();
+    const { whatsapp, linkedin, instagram } = config.joinLinks;
 
     const cards = [
-        { title: "WhatsApp", desc: "Get the latest community updates", href: GROUP_CHAT_LINK, Icon: FaWhatsapp },
-        { title: "LinkedIn", desc: "News, infographics & leadership posts", href: LINKEDIN_LINK, Icon: FaLinkedin },
-        { title: "Instagram", desc: "@reviveatuic", href: INSTAGRAM_LINK, Icon: FaInstagram },
+        { title: "WhatsApp", desc: "Get the latest community updates", href: whatsapp, Icon: FaWhatsapp },
+        { title: "LinkedIn", desc: "News, infographics & leadership posts", href: linkedin, Icon: FaLinkedin },
+        { title: "Instagram", desc: "@reviveatuic", href: instagram, Icon: FaInstagram },
     ];
 
     const IconBadge = ({ Icon }) => (

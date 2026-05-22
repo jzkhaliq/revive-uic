@@ -1,8 +1,13 @@
 // src/components/Donate.jsx
 import { Link } from "react-router-dom";
 import { FaMoneyBillWave } from "react-icons/fa";
+import { useSiteConfig } from "../lib/siteConfig";
 
 export default function Donate() {
+    const config = useSiteConfig();
+    const zelleNumber = config.zelleNumber;
+    const contactEmail = config.contactEmail;
+
     return (
         <section id="donate" className="bg-revive-cream text-revive-brown">
             <div className="max-w-6xl mx-auto px-6 py-16">
@@ -31,7 +36,7 @@ export default function Donate() {
                                 <span className="font-semibold">Donate with Zelle</span>
                             </div>
                             <p className="mt-1 text-center text-sm text-revive-cream/90">
-                                Zelle • (779) 772-6485
+                                Zelle • {zelleNumber}
                             </p>
                         </Link>
                     </div>
@@ -43,7 +48,7 @@ export default function Donate() {
                             <li>Cash at events</li>
                             <li>Sponsor a specific program</li>
                             <li>
-                                Questions? <a className="underline" href="mailto:reviveatuic@gmail.com">reviveatuic@gmail.com</a>
+                                Questions? <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a>
                             </li>
                         </ul>
                     </div>

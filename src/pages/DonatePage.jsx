@@ -1,11 +1,17 @@
 // src/pages/DonatePage.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSiteConfig } from "../lib/siteConfig";
 
-const ZELLE_NUMBER_RAW = "7797726485";
-const ZELLE_NUMBER_FMT = "(779) 772-6485";
+const formatPhone = (value) => {
+    const digits = (value || "").replace(/\D/g, "");
+    return digits.length === 10 ? `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}` : value;
+};
 
 export default function DonatePage() {
+    const config = useSiteConfig();
+    const zelleNumber = config.zelleNumber || "8156704202";
+    const zelleDisplay = formatPhone(zelleNumber);
     const [copied, setCopied] = useState("");
 
     const copy = async (text, label) => {
@@ -30,14 +36,14 @@ export default function DonatePage() {
                 <div className="mt-8 rounded-2xl border border-revive-tan bg-white/70 p-6">
                     <h2 className="text-xl font-semibold">Zelle</h2>
                     <p className="mt-2">
-                        Send to: <span className="font-medium">{ZELLE_NUMBER_FMT}</span>
-                        <span className="ml-2 text-revive-stone">(raw: {ZELLE_NUMBER_RAW})</span>
+                        Send to: <span className="font-medium">{zelleDisplay}</span>
+                        <span className="ml-2 text-revive-stone">(raw: {zelleNumber})</span>
                     </p>
 
                     <div className="mt-3 flex gap-3">
                         <button
                             className="px-3 py-1.5 rounded-xl border border-revive-brown text-revive-brown hover:bg-revive-tan/30 transition"
-                            onClick={() => copy(ZELLE_NUMBER_RAW, "number")}
+                            onClick={() => copy(zelleNumber, "number")}
                             aria-label="Copy Zelle number"
                         >
                             Copy number
@@ -79,7 +85,7 @@ export default function DonatePage() {
 
                 <p className="mt-6 text-sm text-revive-stone">
                     Questions or need a receipt?{" "}
-                    <a className="underline" href="mailto:reviveatuic@gmail.com">reviveatuic@gmail.com</a>
+                    <a className="underline" href={`mailto:${config.contactEmail}`}>{config.contactEmail}</a>
                 </p>
             </div>
         </main>

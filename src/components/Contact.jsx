@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useSiteConfig } from "../lib/siteConfig";
 
 export default function Contact() {
+    const config = useSiteConfig();
+    const contactEmail = config.contactEmail;
     return (
         <motion.section id="contact" className="bg-white text-revive-brown" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div className="max-w-6xl mx-auto px-6 py-16">
@@ -49,7 +52,7 @@ export default function Contact() {
                     <motion.div className="rounded-xl border border-revive-tan bg-white/70 p-6" initial={{ opacity: 0, x: 10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                         <p className="font-semibold">Direct</p>
                         <ul className="mt-2 text-sm text-revive-stone space-y-1">
-                            <li>Email: <a className="underline" href="mailto:reviveatuic@gmail.com">reviveatuic@gmail.com</a></li>
+                            <li>Email: <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a></li>
                             <li>Instagram: <a className="underline" href="#">@reviveatuic</a></li>
                             <li>📍 University of Illinois Chicago</li>
                         </ul>

@@ -6,6 +6,7 @@ import {
     collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { fetchSiteConfig, saveSiteConfig, DEFAULT_SITE_CONFIG } from "../lib/siteConfig";
 
 const ADMIN_EMAIL = "reviveatuic@gmail.com";
 
@@ -39,6 +40,9 @@ export default function Admin() {
     const [events, setEvents] = useState([]);
     const [form, setForm] = useState(emptyForm);
     const [editingId, setEditingId] = useState(null);
+    const [siteConfig, setSiteConfig] = useState(DEFAULT_SITE_CONFIG);
+    const [siteConfigForm, setSiteConfigForm] = useState(DEFAULT_SITE_CONFIG);
+    const [configStatus, setConfigStatus] = useState("");
 
     const navigate = useNavigate();
     const colRef = collection(db, "events");
@@ -52,9 +56,45 @@ export default function Admin() {
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, setUser);
+        loadSiteConfig();
         loadEvents();
         return () => unsub();
     }, []);
+
+    async function loadSiteConfig() {
+        const config = await fetchSiteConfig();
+        setSiteConfig(config);
+        setSiteConfigForm(config);
+    }
+
+    const parseAdminEmails = (value) => {
+        if (Array.isArray(value)) return value.filter(Boolean).map((email) => String(email).trim());
+        return String(value || "").split(",").map((email) => email.trim()).filter(Boolean);
+    };
+
+    const handleSiteConfigChange = (key, value) => {
+        setSiteConfigForm({ ...siteConfigForm, [key]: value });
+    };
+
+    const saveSiteConfigHandler = async (e) => {
+        e.preventDefault();
+        const nextConfig = {
+            ...siteConfigForm,
+            adminEmails: parseAdminEmails(siteConfigForm.adminEmails),
+            joinLinks: {
+                ...siteConfig.joinLinks,
+                ...(siteConfigForm.joinLinks || {})
+            },
+            mentorship: {
+                ...siteConfig.mentorship,
+                ...(siteConfigForm.mentorship || {})
+            }
+        };
+        await saveSiteConfig(nextConfig);
+        setSiteConfig(nextConfig);
+        setConfigStatus("Saved");
+        setTimeout(() => setConfigStatus(""), 2000);
+    };
 
     async function loadEvents() {
         const snap = await getDocs(colRef);
@@ -193,7 +233,11 @@ export default function Admin() {
         );
     }
 
-    if (user.email !== ADMIN_EMAIL) {
+    const allowedEmails = Array.isArray(siteConfig.adminEmails)
+        ? siteConfig.adminEmails
+        : [ADMIN_EMAIL];
+
+    if (user && !allowedEmails.includes(user.email)) {
         return (
             <div className="min-h-screen bg-revive-cream text-revive-brown">
                 <BackBar />
@@ -201,7 +245,7 @@ export default function Admin() {
                     <div className={`${cardCls} w-full max-w-md p-6 text-center`}>
                         <h1 className="text-xl font-semibold mb-2">Not authorized</h1>
                         <p className="text-sm text-revive-stone mb-4">
-                            You’re signed in as {user.email}. Only the admin account can manage events.
+                            You’re signed in as {user.email}. Only authorized admin accounts can manage events.
                         </p>
                         <button className={btnOutline} onClick={logout}>Sign out</button>
                     </div>
@@ -222,6 +266,109 @@ export default function Admin() {
                         <button className={btnOutline} onClick={logout}>Sign out</button>
                     </div>
                 </div>
+
+                <form onSubmit={saveSiteConfigHandler} className={`${cardCls} grid gap-3 p-4 mb-8`}>
+                    <div className="flex items-center justify-between">
+                        <h2 className="font-semibold">Site links and donate settings</h2>
+                        {configStatus && (
+                            <span className="text-sm text-revive-stone">{configStatus}</span>
+                        )}
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-3">
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">Contact email</span>
+                            <input
+                                className={inputCls}
+                                type="email"
+                                value={siteConfigForm.contactEmail}
+                                onChange={(e) => handleSiteConfigChange("contactEmail", e.target.value)}
+                            />
+                        </label>
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">Zelle number</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.zelleNumber}
+                                onChange={(e) => handleSiteConfigChange("zelleNumber", e.target.value)}
+                            />
+                        </label>
+                    </div>
+
+                    <label className="block">
+                        <span className="text-sm text-revive-stone">Admin emails (comma-separated)</span>
+                        <input
+                            className={inputCls}
+                            value={Array.isArray(siteConfigForm.adminEmails) ? siteConfigForm.adminEmails.join(", ") : siteConfigForm.adminEmails}
+                            onChange={(e) => handleSiteConfigChange("adminEmails", e.target.value)}
+                        />
+                    </label>
+
+                    <div className="grid sm:grid-cols-2 gap-3">
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">Mentee form URL</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.mentorship?.menteeForm}
+                                onChange={(e) => setSiteConfigForm({
+                                    ...siteConfigForm,
+                                    mentorship: { ...siteConfigForm.mentorship, menteeForm: e.target.value }
+                                })}
+                            />
+                        </label>
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">Mentor form URL</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.mentorship?.mentorForm}
+                                onChange={(e) => setSiteConfigForm({
+                                    ...siteConfigForm,
+                                    mentorship: { ...siteConfigForm.mentorship, mentorForm: e.target.value }
+                                })}
+                            />
+                        </label>
+                    </div>
+
+                    <div className="grid sm:grid-cols-3 gap-3">
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">WhatsApp link</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.joinLinks?.whatsapp}
+                                onChange={(e) => setSiteConfigForm({
+                                    ...siteConfigForm,
+                                    joinLinks: { ...siteConfigForm.joinLinks, whatsapp: e.target.value }
+                                })}
+                            />
+                        </label>
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">LinkedIn link</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.joinLinks?.linkedin}
+                                onChange={(e) => setSiteConfigForm({
+                                    ...siteConfigForm,
+                                    joinLinks: { ...siteConfigForm.joinLinks, linkedin: e.target.value }
+                                })}
+                            />
+                        </label>
+                        <label className="block">
+                            <span className="text-sm text-revive-stone">Instagram link</span>
+                            <input
+                                className={inputCls}
+                                value={siteConfigForm.joinLinks?.instagram}
+                                onChange={(e) => setSiteConfigForm({
+                                    ...siteConfigForm,
+                                    joinLinks: { ...siteConfigForm.joinLinks, instagram: e.target.value }
+                                })}
+                            />
+                        </label>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <button type="submit" className={btnPrimary}>Save site settings</button>
+                    </div>
+                </form>
 
                 {/* CREATE / EDIT FORM */}
                 <form onSubmit={saveEvent} className={`${cardCls} grid gap-3 p-4 mb-8`}>

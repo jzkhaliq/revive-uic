@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
+import { useSiteConfig } from "../lib/siteConfig";
 
 export default function Mentorship() {
+    const config = useSiteConfig();
+    const menteeLink = config.mentorship.menteeForm;
+    const mentorLink = config.mentorship.mentorForm;
+
     return (
         <motion.section
             id="mentorship"
@@ -39,7 +44,7 @@ export default function Mentorship() {
                             Great for freshmen & transfers. Tell us your goals and interests.
                         </p>
                         <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSfsOqmV8DXx21-LFZbUeeAqQ-P0iZAA3O-O_b6A77svbA4RQA/viewform?usp=header"
+                            href={menteeLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block mt-4 rounded-lg bg-revive-brown text-revive-cream px-4 py-2 font-semibold hover:bg-revive-coffee"
@@ -57,7 +62,7 @@ export default function Mentorship() {
                             Upperclassmen lead with compassion and consistency.
                         </p>
                         <a
-                            href="https://docs.google.com/forms/d/e/1FAIpQLScuJuL3_loJw_DPkoDKATtoOLqA2g2hAId6-6IJrPdCuwzfUg/viewform?usp=sharing&ouid=106238069378466152176"
+                            href={mentorLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block mt-4 rounded-lg border border-revive-brown px-4 py-2 font-semibold hover:bg-revive-tan/50"
